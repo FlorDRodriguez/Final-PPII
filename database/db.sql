@@ -96,6 +96,11 @@ CREATE TABLE alumnos (
     PRIMARY KEY (legajo)
 );
 
+ALTER TABLE alumnos ADD  contraseña VARCHAR(60) NOT NULL;
+
+INSERT INTO alumnos (legajo, dni, nombre, apellido, direccion, telefono, contraseña) 
+    VALUES (6723, 39533850, 'Florencia', 'Rodriguez', 'Lamadrid 123', '2615680505', '39533850');
+
 DESCRIBE alumnos;
 
 
@@ -108,6 +113,8 @@ CREATE TABLE profesores (
     telefono VARCHAR(45),
     PRIMARY KEY (nroBono)
 );
+
+ALTER TABLE profesores ADD  contraseña VARCHAR(60) NOT NULL;
 
 DESCRIBE profesores;
 
