@@ -93,6 +93,7 @@ CREATE TABLE alumnos (
     apellido VARCHAR(45) NOT NULL,
     direccion VARCHAR(45) NOT NULL,
     telefono VARCHAR(45),
+    contraseña VARCHAR(45) NOT NULL,
     PRIMARY KEY (legajo)
 );
 

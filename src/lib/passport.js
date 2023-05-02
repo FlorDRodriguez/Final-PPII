@@ -10,18 +10,18 @@ passport.use('local.signin', new LocalStrategy({
     passwordField: 'contraseña',
     passReqToCallback: true
 }, async (req, dni, contraseña, done) => {
-    console.log(req.body);
-    const rows = await pool.query('SELECT * FROM alumnos WHERE dni = ?', [dni]);
-    if (rows.length > 0) {
-        const alumno = rows[0];
-        //const validPassword = await helpers.matchPassword(password, user.password);
-        if (alumno) {
-            done(null, alumno, req.flash('success', 'Bienvenido ' + alumno.nombre)); 
+    //console.log(req.body);
+    const fila = await pool.query('SELECT * FROM alumnos WHERE dni = ?', [dni]);
+    if (fila.length > 0) {
+        const alumno = fila[0];
+        //const validPassword = await helpers.matchPassword(contraseña, alumno.contraseña)
+        if (contraseña == dni) {
+            done(null, alumno, req.flash('success', 'Bienvenid@ ' + alumno.nombre));
         } else {
-            done(null, false, req.flash('message', 'Contraseña incorrecta'));
+            done(null, false, req.flash('message', 'Contraseña Incorrecta'));
         }
     } else {
-        return done(null, false, req.flash('message', 'No existe el usuario'))
+        return done(null, false, req.flash('message', 'El usuario no existe'));
     }
 }));
 
