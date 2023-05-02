@@ -3,68 +3,36 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
 const pool = require('../database');
-const helpers = require('../lib/helpers');
+//const helpers = require('../lib/helpers');
 
-//REGISTRO
-passport.use('local.signup', new LocalStrategy({//creo la autentificacion
-    usernameField: 'username',
-    passwordField: 'password',
-    passReqToCallback: true
-}, async (req, username, password, done) => {
-    const { namee, lname, phone, email } = req.body; //depende de la db
-    let newUser = {
-        username,
-        password,
-        namee,
-        lname,
-        phone,
-        email
-    };
-    console.log(req.body);
-    newUser.password = await helpers.encryptPassword(password);
-    const result = await pool.query('INSERT INTO users SET ?', newUser);
-    //me va a devolver el callback done para que continue
-    //va a almacenar el newUser en una sesión
-    newUser.id = result.insertId;
-    return done(null, newUser);
-}));//despues de la , defino que es lo que va a hacer despues de autentificarse el usuario
-//done p que continue luego del proceso de autentificacion
-
-//Lo guarda en una sesión
-passport.serializeUser((user, done) => {
-    done(null, user.id); //null es para error
-});
-
-//todo el id guardado para volver a obtener los datos
-passport.deserializeUser (async(id, done ) => {
-    const rows = await pool.query('SELECT * FROM users WHERE id = ?', [id]);
-    done(null, rows[0]); //
-});
-
-//INICIO DE SESIÓN
 passport.use('local.signin', new LocalStrategy({ 
-    usernameField: 'username',
-    passwordField: 'password',
-    passReqToCallback: true //para obtener datos adicionales
-}, async (req, username, password, done) => {
-    //console.log(req.body);
-    const rows = await pool.query('SELECT * FROM users WHERE username = ?', [username]);
-    if (rows.length > 0) { //si esto se cumple significa que se encontró algun usuario
-        const user = rows[0]; //guardo el usuario que se encontró
-        console.info("--------");
-        console.info(user);
-        const validPassword = await helpers.matchPassword(password, user.password);//compara contraseñas
-        //la ingresada en texto plano con la cifrada
-        if (validPassword) { //si validPass es true 
-            done(null, user, req.flash('success', 'Bienvenido ' + user.username)); //termino el proceso del signin
+    usernameField: 'dni',
+    passwordField: 'contraseña',
+    passReqToCallback: true
+}, async (req, dni, contraseña, done) => {
+    console.log(req.body);
+    const rows = await pool.query('SELECT * FROM alumnos WHERE dni = ?', [dni]);
+    if (rows.length > 0) {
+        const alumno = rows[0];
+        //const validPassword = await helpers.matchPassword(password, user.password);
+        if (alumno) {
+            done(null, alumno, req.flash('success', 'Bienvenido ' + alumno.nombre)); 
         } else {
             done(null, false, req.flash('message', 'Contraseña incorrecta'));
-            //false pq no se obtuvo ningun usuario
         }
-    } else { //directamente no encontro el usuario
+    } else {
         return done(null, false, req.flash('message', 'No existe el usuario'))
     }
 }));
+
+passport.serializeUser((alumno, done) => {
+    done(null, alumno.dni);
+});
+
+passport.deserializeUser (async(dni, done ) => {
+    const rows = await pool.query('SELECT * FROM alumnos WHERE dni = ?', [dni]);
+    done(null, rows[0]);
+});
 
 
 
