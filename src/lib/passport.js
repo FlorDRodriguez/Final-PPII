@@ -2,7 +2,9 @@ const { validationResult } = require('express-validator/check');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
+
 const pool = require('../database');
+const express = require('express');
 //const helpers = require('../lib/helpers');
 
 passport.use('local.signin', new LocalStrategy({ 
@@ -10,11 +12,12 @@ passport.use('local.signin', new LocalStrategy({
     passwordField: 'contraseña',
     passReqToCallback: true
 }, async (req, dni, contraseña, done) => {
+    console.log(req.body);
     const fila = await pool.query('SELECT * FROM alumnos WHERE dni = ?', [dni]);
     if (fila.length > 0) {
         const alumno = fila[0];
         if (dni === contraseña) {
-            done(null, alumno, req.flash('success', 'Bienvenid@ ' + alumno.dni));
+            done(false, alumno, req.flash('success', 'Bienvenid@ ' + alumno.nombre));
             console.log('SI');
             console.log(alumno.dni);
         } else {
