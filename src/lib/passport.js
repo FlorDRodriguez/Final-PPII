@@ -10,15 +10,17 @@ passport.use('local.signin', new LocalStrategy({
     passwordField: 'contraseña',
     passReqToCallback: true
 }, async (req, dni, contraseña, done) => {
-    //console.log(req.body);
     const fila = await pool.query('SELECT * FROM alumnos WHERE dni = ?', [dni]);
     if (fila.length > 0) {
         const alumno = fila[0];
-        //const validPassword = await helpers.matchPassword(contraseña, alumno.contraseña)
-        if (contraseña == dni) {
-            done(null, alumno, req.flash('success', 'Bienvenid@ ' + alumno.nombre));
+        if (dni === contraseña) {
+            done(null, alumno, req.flash('success', 'Bienvenid@ ' + alumno.dni));
+            console.log('SI');
+            console.log(alumno.dni);
         } else {
             done(null, false, req.flash('message', 'Contraseña Incorrecta'));
+            console.log('NO');
+            console.log(alumno);
         }
     } else {
         return done(null, false, req.flash('message', 'El usuario no existe'));
@@ -26,13 +28,13 @@ passport.use('local.signin', new LocalStrategy({
 }));
 
 passport.serializeUser((alumno, done) => {
-    done(null, alumno.dni);
-});
-
-passport.deserializeUser (async(dni, done ) => {
-    const rows = await pool.query('SELECT * FROM alumnos WHERE dni = ?', [dni]);
+    done(null, alumno.idAlumno);
+  });
+  
+  passport.deserializeUser(async (idAlumno, done) => {
+    const rows = await pool.query('SELECT * FROM alumnos WHERE idAlumno = ?', [idAlumno]);
     done(null, rows[0]);
-});
+  });
 
 
 

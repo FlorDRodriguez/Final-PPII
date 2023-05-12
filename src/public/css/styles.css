@@ -1,0 +1,49 @@
+body {
+    background: #82C260;
+    font-family: 'Oswald', sans-serif;
+    overflow: hidden;
+}
+
+.index {
+    width: 100vw;
+    height: 100vh;
+}
+
+.navbar {
+    background: black !important;
+}
+
+.nav-link {
+    color: #fff !important;
+}
+
+.navbar-brand {
+  width: 0%;
+  text-align: left;
+}
+
+.margin-auto {
+  display: flex;
+  height: auto;
+  width: auto;
+}
+
+.masthead {
+    color: black;
+    min-height: 30rem;
+    width: 100%;
+    height: 100%;
+    padding-top: 8rem;
+    padding-bottom: 8rem;
+    background: url('/img/background.jpeg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.card {
+  background: #55803E; 
+  border: 5px solid black;
+  border-radius: 20px;
+}
+
