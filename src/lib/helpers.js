@@ -8,6 +8,8 @@ helpers.encryptPassword = async (contraseña) => {
   return hash;
 };
 
+//Innecesario por ahora
+
 helpers.matchPassword = async (contraseña, savedPassword) => {
   try {
     return await bcrypt.compare(contraseña, savedPassword);

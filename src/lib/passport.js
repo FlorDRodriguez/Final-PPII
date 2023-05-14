@@ -1,4 +1,3 @@
-const { validationResult } = require('express-validator/check');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
@@ -14,7 +13,6 @@ passport.use('local.signin', new LocalStrategy({
     const fila = await pool.query('SELECT * FROM alumnos WHERE dni = ?', [dni]);
     if (fila.length > 0) {
         const alumno = fila[0];
-        //const validPassword = await helpers.matchPassword(contraseña, alumno.contraseña)
         if (contraseña == dni) {
             done(null, alumno, req.flash('success', 'Bienvenid@ ' + alumno.nombre));
         } else {
