@@ -9,9 +9,10 @@ router.get('/signin', isNotLoggedIn, (req, res) => {
 });
 
 router.post('/signin', isNotLoggedIn, passport.authenticate('local.signin', {
-        successRedirect: '/profile',
-        failureRedirect: '/signin',
-        failureFlash: true
+    //Redirigir al home    
+    successRedirect: '/',
+    failureRedirect: '/signin',
+    failureFlash: true
 }));
 
 router.get('/profile', isLoggedIn, (req, res) => {
@@ -19,8 +20,10 @@ router.get('/profile', isLoggedIn, (req, res) => {
 });
 
 router.get('/logout', (req, res) => {
-    req.logOut();
-    res.redirect('/signin');
-})
+    req.logout(function (err) {
+        if (err) { return next(err); }
+        res.redirect('/signin');
+    });
+});
 
 module.exports = router;
