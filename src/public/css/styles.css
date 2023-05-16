@@ -1,5 +1,5 @@
 body {
-    background: #82C260;
+    background: #f9fafc;
     font-family: 'Oswald', sans-serif;
     overflow: hidden;
 }
@@ -10,11 +10,11 @@ body {
 }
 
 .navbar {
-    background: black !important;
+    background: #76A66F !important;
 }
 
 .nav-link {
-    color: #fff !important;
+    color: black !important;
 }
 
 .navbar-brand {
@@ -36,8 +36,8 @@ body {
 }
 
 .card {
-  background: #55803E; 
-  border: 5px solid black;
+  background: white; 
+  border: 2px solid black;
   border-radius: 20px;
 }
 
@@ -71,8 +71,8 @@ body {
 .box {
     position: relative;
     border-radius: 3px;
-    background: #ffffff;
-    border-top: 3px solid #d2d6de;
+    background: white;
+    border-top: 3px solid #76A66F;
     margin-bottom: 20px;
     width: 100%;
     box-shadow: 0 1px 1px rgba(0,0,0,0.1);
@@ -93,7 +93,7 @@ padding-left: 15px;
 }
 
 .box-header {
-    color: #444;
+    color: #76A66F;
     display: block;
     padding: 10px;
     position: relative;
@@ -117,4 +117,36 @@ padding-left: 15px;
 
 div {
     display: block;
+}
+
+img.pequeña {
+    width: 50px;
+    height: 50px;}
+
+.margenes {
+    margin-left: 2em;
+    margin-right: 2em;
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
+.centrar-botones {
+    height: 90px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+.grid-container{
+	display: grid;
+
+	grid-column-gap: 100px;
+}
+
+.card-header {
+    background-color: #76A66F;
+    border-radius: 20px;
 }

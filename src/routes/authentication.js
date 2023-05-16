@@ -4,23 +4,33 @@ const passport = require('passport');
 
 const { isLoggedIn, isNotLoggedIn } = require('../lib/auth');
 
-router.get('/signin', isNotLoggedIn, (req, res) => {
-    res.render('auth/signin');
+//ALUMNOS
+router.get('/signinAlumno', isNotLoggedIn, (req, res) => {
+    res.render('auth/signinAlumno');
 });
 
-router.post('/signin', isNotLoggedIn, passport.authenticate('local.signin', {
-        successRedirect: '/profile',
-        failureRedirect: '/signin',
+router.post('/signinAlumno', isNotLoggedIn, passport.authenticate('local.signinAlumno', {
+        successRedirect: '/',
+        failureRedirect: '/signinAlumno',
         failureFlash: true
 }));
 
-router.get('/profile', isLoggedIn, (req, res) => {
-    res.render('profile');
+//PROFESORES
+router.get('/signinProfesor', isNotLoggedIn, (req, res) => {
+    res.render('auth/signinProfesor');
 });
 
-router.get('/logout', (req, res) => {
-    req.logOut();
-    res.redirect('/signin');
-})
+router.post('/signinProfesor', isNotLoggedIn, passport.authenticate('local.signinProfesor', {
+        successRedirect: '/',
+        failureRedirect: '/signinProfesor',
+        failureFlash: true
+}));
+
+router.get('/logout', function(req, res, next) {
+    req.logout(function(err) {
+      if (err) { return next(err); }
+      res.redirect('/signinAlumno');
+    });
+  });
 
 module.exports = router;

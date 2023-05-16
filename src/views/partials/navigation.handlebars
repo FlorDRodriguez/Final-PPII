@@ -9,7 +9,23 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ml-auto">
-        {{#if alumno}}
+    
+        <li class="nav-item">
+          <a class="nav-link" href="/logout">Cerrar sesión</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+        
+        
+        
+        
+        
+        
+        
+        
+ {{!#if alumno
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
@@ -27,12 +43,12 @@
         <li class="nav-item">
           <a class="nav-link" href="/logout">Cerrar sesión</a>
         </li>
-        {{else}}
+        {{else
         <li class="nav-item">
           <a class="nav-link" href="/signin">Iniciar sesión</a>
         </li>
-        {{/if}}
+        {{/if
       </ul>
     </div>
   </div>
-</nav>
+</nav>}}
