@@ -14,9 +14,9 @@ module.exports = {
     },
     
     authProfesor(req, res, next) {
-        if (req.profesor == null) {
+        if (req.profesor !== null) {
             return next();}
-
-            return res.redirect('/profile');
+            req.flash('message', 'Contraseña Incorrecta')
+            return res.redirect('/index');
         }
 };

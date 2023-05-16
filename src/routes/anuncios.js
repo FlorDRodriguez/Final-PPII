@@ -5,13 +5,16 @@ const pool = require('../database');
 const { isLoggedIn, authProfesor } = require('../lib/auth');
 
 
-//solo acceso a los profesores
 router.get('/add', isLoggedIn, authProfesor, async (req, res) => {
-    res.render('anuncios/add');
+    const tipo = await pool.query('SELECT * FROM tipoAnuncios');
+    // const cursos = await pool.query('SELECT * FROM cursos WHERE profesor = ?', [req.profesor.idProfesor]);
+
+    res.render('anuncios/add', {tipo, 
+        // cursos
+    });
 });
 
-//solo acceso a los profesores
-router.post('/add', authProfesor, async (req, res) => {
+router.post('/add', async (req, res) => {
     const { titulo, descripcion, curso, tipo } = req.body;
     const newAnuncio = {
         titulo,
@@ -26,7 +29,7 @@ router.post('/add', authProfesor, async (req, res) => {
 });
 
 router.get('/', isLoggedIn, async (req, res) => {
-    const anuncios = await pool.query('SELECT *, (SELECT COUNT(idAnuncio) FROM anuncios WHERE curso = cursos.idCurso) AS cantAnuncios FROM anuncios WHERE curso.idCurso = ?', [req.curso.idCurso]);
+    const anuncios = await pool.query('SELECT * FROM anuncios WHERE curso.idCurso = ?', [req.curso.idCurso]);
 
     res.render('anuncios/list', {anuncios});
 });
@@ -41,11 +44,14 @@ router.get('/delete/:idAnuncio', isLoggedIn, authProfesor, async (req, res) => {
 router.get('/edit/:idAnuncio', isLoggedIn, authProfesor, async (req, res) => {
     const { idAnuncio } = req.params;
     const anuncios = await pool.query('SELECT * FROM anuncios WHERE idAnuncio = ?', [idAnuncio]);
+    const tipo = await pool.query('SELECT * FROM tipoAnuncios');
+    // const cursos = await pool.query('SELECT * FROM cursos WHERE profesor = ?', [req.profesor.idProfesor]);
 
-    res.render('anuncios/edit', { anuncio: anuncios[0] })
+    res.render('anuncios/edit', { anuncio: anuncios[0], tipo, 
+        // cursos 
+    })
 });
 
-//solo acceso a los profesores
 router.post('/edit/:idAnuncio', async (req, res) => {
     const { idAnuncio } = req.params;
     const { titulo, descripcion, curso, tipo } = req.body;

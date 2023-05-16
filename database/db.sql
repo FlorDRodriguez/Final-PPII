@@ -162,6 +162,17 @@ CREATE TABLE clases (
 
 DESCRIBE clases;
 
+
+CREATE TABLE cursosdias (
+    idDia INT NOT NULL,
+    CONSTRAINT fk_idDia FOREIGN KEY(idDia) REFERENCES dias(idDia),
+    idCurso INT NOT NULL,
+    CONSTRAINT idCurso FOREIGN KEY(idCurso) REFERENCES cursos(idCurso),
+    PRIMARY KEY (idDia, idCurso)
+);
+
+SELECT * from cursosdias;
+
 --ALTERS
 
 ALTER TABLE alumnos 
@@ -169,12 +180,18 @@ ADD UNIQUE (dni);
 
 DESCRIBE alumnos;
 
+
 ALTER TABLE profesores 
 ADD UNIQUE (dni);  
 
 DESCRIBE profesores;
 
+
 ALTER TABLE cursos MODIFY COLUMN horario TIME NOT NULL; 
+
+alter table cursos drop FOREIGN KEY fk_dias;
+
+alter table cursos drop column dias;
 
 -- INSERTS
 
@@ -263,3 +280,8 @@ VALUES
     (1, 'Reported Speech', 1, 2, 1, 1, 1);
 
 SELECT * from clases;
+
+
+-- SELECT C.nombre, C.horario, C.anio, C.nivel, D.dia
+-- FROM cursos C, dias D, cursosdias E
+-- WHERE C.idCurso = E.idCurso && D.idDia = E.idDia

@@ -1,39 +1,28 @@
 <div class="container p-4">
-
-    <div class="card text-center p-4">
-        {{!-- <h4>{{genre.genre}}</h4>
-        {{genre.description}} --}}
-    </div>
-    <br>
-    {{#if anuncios}}
-    <div class="row mx-auto justify-content-around">
-
-        <a href="/anuncios/add" class="btn btn-success">Agregar Nueva Película</a>
-    </div>
-
-    <br>
-    <br>
-
-    <div class="row">
-        {{#each anuncios}}
-        <div class="col-md-3">
-            <div class="card text-center">
-                <div class="card-body">
-                    <a href="/anuncios/see/{{id}}" class="btn btn-info" role="button">VER</a>
-                    <a href="/anuncios/edit/{{id}}" class="btn btn-secondary" role="button">EDITAR</a>
-                    <a href="/anuncios/delete/{{id}}" class="btn btn-danger" role="button">ELIMINAR</a>
-                </div>
+    <div class="col-md-4 mx-auto">
+        <div class="card">
+            <div class="card-body">
+                <form action="/anuncios/see/{{anuncio.idAnuncio}}" method="GET">
+                    <div class="form-group text-center">
+                        <h4>{{anuncio.titulo}}</h4>
+                    </div>
+                    <div class="form-group">
+                        Tipo de anuncio: {{anuncio.tipo}}
+                    </div>
+                    <div class="form-group">
+                        Profesor: {{anuncio.profesor}}
+                    </div>
+                    <div class="form-group">
+                        {{anuncio.descripcion}}
+                    </div>
+                    <div class="form-group">
+                        {{anuncio.created_at}}
+                    </div>
+                    <div class="col-md-4 mx-auto">
+                        <a href="/anuncios" class="btn btn-primary" role="button">VOLVER</a>
+                    </div>
+                </form>
             </div>
         </div>
-
-        {{/each}}
     </div>
-    {{else}}
-    <div class="col-md-4 mx-auto">
-        <div class="card card-body text-center">
-            <p> No hay anuncios aún </p>
-            <a href="/anuncios/add" class="btn btn-success"> ¡Crea uno! </a>
-        </div>
-    </div>
-    {{/if}}
 </div>

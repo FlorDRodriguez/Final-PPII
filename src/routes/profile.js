@@ -6,9 +6,9 @@ const pool = require('../database');
 
 router.get('/', isLoggedIn, async (req, res) => {
     const { idAlumno } = req.user;
-//     const [cantGenres] =  await pool.query('SELECT COUNT(id) AS cantGenres FROM genres WHERE user_id = ?' ,[id]);
-//     const [cantMovies] =  await pool.query('SELECT COUNT(id) AS cantMovies FROM movies WHERE user_id = ?' ,[id]);
-    res.render('profile', { });
+    const alumno =  await pool.query('SELECT * FROM alumnos WHERE idAlumno = ?' ,[idAlumno]);
+    console.log(alumno)
+    res.render('profile', { alumno });
 });
 
 module.exports = router;
