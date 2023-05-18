@@ -1,23 +1,36 @@
-<main class="index">
-    <div class="container p-4">
-        <div class="row">
-            <div class="col-md-9 mx-auto">
-                <div class="card text-center">
-                    <div class="card-body">
-                        <div class="row">
-                            <h3>
-                                HOLA MUNDO
-                            </h3>
-                            <h3>
-                                <a href="/profile">Perfil</a>
-                            </h3>
-                            <h3>
-                                <a href="/logout">Cerrar Sesión</a>
-                            </h3>
+<div class="row margenes ">
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-header">
+                DATOS PERSONALES
+            </div>
+            <div class="card-body">
+                <h5>Nombre completo: {{alumno.nombre}} {{alumno.apellido}} </h5>
+                <h5>DNI: {{alumno.dni}} </h5>
+                <h5>Dirección: {{alumno.direccion}} </h5>
+                <h5>Teléfono: {{alumno.telefono}} </h5>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-9">
+        <div class="">
+            <div class="card ">
+                <div class="card-header">
+                    ALUMNO
+                </div>
+                <div class="card-body">
+                    <div class="grid-container">
+                        <div class="centrar-botones">
+                            <div class="">
+                                <img class="pequeña" src="/img/asistencia.png" alt="">
+                                <h5>Asistencia</h5>
+                            </div>
+                            <div class="">
+                                <img class="pequeña" src="/img/calificacion.png" alt="notas-alumno">
+                                <h5>Calificaciones</h5>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</main>

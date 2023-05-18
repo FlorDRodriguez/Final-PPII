@@ -52,7 +52,7 @@ app.use(require('./routes/authentication'));
 app.use('/anuncios', require('./routes/anuncios'));
 
 // Public
-//app.use(express.static(path.join(__dirname, "public/")));
+app.use(express.static(path.join(__dirname, "public/")));
 
 // Starting
 app.listen(app.get('port'), () => {
