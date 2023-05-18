@@ -1,4 +1,3 @@
-const { validationResult } = require('express-validator/check');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 

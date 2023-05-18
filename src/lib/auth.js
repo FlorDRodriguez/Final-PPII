@@ -10,7 +10,13 @@ module.exports = {
         if(!req.isAuthenticated()) {
             return next();
         }
-        return res.redirect('/');
-    }
+        return res.redirect('/profile');
+    },
+    
+    authProfesor(req, res, next) {
+        if (req.profesor !== null) {
+            return next();}
+            req.flash('message', 'Contraseña Incorrecta')
+            return res.redirect('/index');
+        }
 };
-
